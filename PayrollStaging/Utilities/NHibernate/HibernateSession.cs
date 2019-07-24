@@ -16,8 +16,8 @@ using System.Linq.Expressions;
 using Mapping = NHibernate.Mapping;
 using PayrollStaging.Utilities.NHibernate;
 using PayrollStaging.Models;
-using PayrollStaging.App_Start;
-using PayrollStaging.NHibernate;
+//using PayrollStaging.App_Start;
+//using PayrollStaging.NHibernate;
 
 
 namespace PayrollStaging.Utilities {
@@ -56,48 +56,48 @@ namespace PayrollStaging.Utilities {
 					var connectionStrings =  System.Configuration.ConfigurationManager.ConnectionStrings;
 
 					switch (environmentOverride_testOnly ?? Config.GetEnv()) {
-						case Env.local_mysql: {
+						//case Env.local_mysql: {
 
-								var connectionString = connectionStrings["DefaultConnectionMsSql"].ConnectionString;
-								var file = connectionString.Split(new String[] { "Data Source=" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(';')[0];
-								DbFile = file;
-								try {
-									c = new Configuration();
-									c.SetInterceptor(new NHSQLInterceptor());
+						//		var connectionString = connectionStrings["DefaultConnectionMsSql"].ConnectionString;
+						//		var file = connectionString.Split(new String[] { "Data Source=" }, StringSplitOptions.RemoveEmptyEntries)[0].Split(';')[0];
+						//		DbFile = file;
+						//		try {
+						//			c = new Configuration();
+						//			c.SetInterceptor(new NHSQLInterceptor());
 								
-									factories[env] = Fluently.Configure(c).Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString))
-									.Mappings(m => {
-										m.FluentMappings.AddFromAssemblyOf<UserModel>();
-									})
-								   .CurrentSessionContext("web")
-								   .ExposeConfiguration(x => BuildMsSqlSchema(x))
-								   .BuildSessionFactory();
-								} catch (Exception e) {
-									throw e;
-								}
-								break;
-							}
-						case Env.mssql: {								
-								try {
-									c = new Configuration();
-									c.SetInterceptor(new NHSQLInterceptor());
+						//			factories[env] = Fluently.Configure(c).Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString))
+						//			.Mappings(m => {
+						//				m.FluentMappings.AddFromAssemblyOf<UserModel>();
+						//			})
+						//		   .CurrentSessionContext("web")
+						//		   .ExposeConfiguration(x => BuildMsSqlSchema(x))
+						//		   .BuildSessionFactory();
+						//		} catch (Exception e) {
+						//			throw e;
+						//		}
+						//		break;
+						//	}
+						//case Env.mssql: {								
+						//		try {
+						//			c = new Configuration();
+						//			c.SetInterceptor(new NHSQLInterceptor());
 									
-									factories[env] = Fluently.Configure(c).Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionStrings["DefaultConnectionMsSql"].ConnectionString)/*.ShowSql()*/)
-									   .Mappings(m => {
-										   m.FluentMappings.AddFromAssemblyOf<UserModel>();
-									   })
-									   .ExposeConfiguration(x => BuildMsSqlSchema(x))
-									   .BuildSessionFactory();
-								} catch (Exception e) {
-									var mbox = e.Message;
-									if (e.InnerException != null && e.InnerException.Message != null)
-										mbox = e.InnerException.Message;
+						//			factories[env] = Fluently.Configure(c).Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionStrings["DefaultConnectionMsSql"].ConnectionString)/*.ShowSql()*/)
+						//			   .Mappings(m => {
+						//				   m.FluentMappings.AddFromAssemblyOf<UserModel>();
+						//			   })
+						//			   .ExposeConfiguration(x => BuildMsSqlSchema(x))
+						//			   .BuildSessionFactory();
+						//		} catch (Exception e) {
+						//			var mbox = e.Message;
+						//			if (e.InnerException != null && e.InnerException.Message != null)
+						//				mbox = e.InnerException.Message;
 
-									ChromeExtensionComms.SendCommand("dbError", mbox);
-									throw e;
-								}
-								break;
-							}
+						//			ChromeExtensionComms.SendCommand("dbError", mbox);
+						//			throw e;
+						//		}
+						//		break;
+						//	}
 						case Env.test_server: {
 								try {
 									c = new Configuration();
@@ -105,7 +105,7 @@ namespace PayrollStaging.Utilities {
 
 									factories[env] = Fluently.Configure(c).Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionStrings["Test_Server"].ConnectionString)/*.ShowSql()*/)
 									   .Mappings(m => {
-										   m.FluentMappings.AddFromAssemblyOf<UserModel>();
+										   m.FluentMappings.AddFromAssemblyOf<TimeLogs>();
 									   })
 									   .ExposeConfiguration(x => BuildMsSqlSchema(x))
 									   .BuildSessionFactory();
@@ -171,7 +171,7 @@ namespace PayrollStaging.Utilities {
 						session.AddContext();
 					}
 					return session;
-				} catch (Exception) {
+				} catch (Exception e) {
 					//Something went wrong.. revert
 					//var a = "Error";
 				}
@@ -196,23 +196,23 @@ namespace PayrollStaging.Utilities {
 			}
 			return null;
 		}
-		public static async void SignInUser(UserModel user, bool remeberMe) {
+		//public static async void SignInUser(UserModel user, bool remeberMe) {
 
 			
-			//CurrentUserSession.userSession = user.Id;
+		//	//CurrentUserSession.userSession = user.Id;
 
-			if (remeberMe) {
+		//	if (remeberMe) {
 
-				if (user.SecurityStamp == null) {
-					user.SecurityStamp = Guid.NewGuid().ToString();
-					NHibernateUserStore hs = new NHibernateUserStore();
-					await hs.UpdateAsync(user);
-				}
-				CurrentUserSession.userSecurityStampCookie = user.SecurityStamp;
-			} else {
-				CurrentUserSession.removeSecurityStampCookie();
-			}
-		}
+		//		if (user.SecurityStamp == null) {
+		//			user.SecurityStamp = Guid.NewGuid().ToString();
+		//			NHibernateUserStore hs = new NHibernateUserStore();
+		//			await hs.UpdateAsync(user);
+		//		}
+		//		CurrentUserSession.userSecurityStampCookie = user.SecurityStamp;
+		//	} else {
+		//		CurrentUserSession.removeSecurityStampCookie();
+		//	}
+		//}
 		public class RuntimeNames {
 			private Configuration cfg;
 

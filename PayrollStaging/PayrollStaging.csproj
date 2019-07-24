@@ -154,15 +154,24 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\UploadingTimeLogsController.cs" />
+    <Compile Include="Crosscutting\Hooks\HookData.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Enums\Env.cs" />
+    <Compile Include="Models\Interfaces\IDeletable.cs" />
+    <Compile Include="Models\Timelog\TimeLogs.cs" />
+    <Compile Include="NHibernate\NHibernateITimeLogStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\AsyncUtility.cs" />
     <Compile Include="Utilities\Config.cs" />
     <Compile Include="Utilities\Extensions\ObjectExtensions.cs" />
     <Compile Include="Utilities\FileUtilities.cs" />
     <Compile Include="Utilities\NHibernate\HibernateSession.cs" />
+    <Compile Include="Utilities\NHibernate\SingleRequestSession.cs" />
+    <Compile Include="Utilities\NHibernate\SingleRequestTransaction.cs" />
+    <Compile Include="Utilities\Productivity\ChromeExtensionComms.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -179,8 +188,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\Interfaces\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

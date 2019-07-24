@@ -66,22 +66,22 @@ namespace PayrollStaging.Utilities {
                     throw new ArgumentOutOfRangeException();
             }
         }
-        public static bool DisableMinification()
-        {
-            switch (GetEnv())
-            {
-                case Env.local_sqlite:
-                    return GetAppSetting("DisableMinification", "False").ToBoolean();
-                case Env.local_test_sqlite:
-                    return GetAppSetting("DisableMinification", "False").ToBoolean();
-                case Env.local_mysql:
-                    return GetAppSetting("DisableMinification", "False").ToBoolean();
-                case Env.test_server:
-                    return GetAppSetting("DisableMinification", "False").ToBoolean();
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+        //public static bool DisableMinification()
+        //{
+        //    switch (GetEnv())
+        //    {
+        //        case Env.local_sqlite:
+        //            return GetAppSetting("DisableMinification", "False").ToBoolean();
+        //        case Env.local_test_sqlite:
+        //            return GetAppSetting("DisableMinification", "False").ToBoolean();
+        //        case Env.local_mysql:
+        //            return GetAppSetting("DisableMinification", "False").ToBoolean();
+        //        case Env.test_server:
+        //            return GetAppSetting("DisableMinification", "False").ToBoolean();
+        //        default:
+        //            throw new ArgumentOutOfRangeException();
+        //    }
+        //}
 
         public static bool RunChromeExt() {
 			switch (GetEnv()) {
@@ -101,35 +101,35 @@ namespace PayrollStaging.Utilities {
 					throw new ArgumentOutOfRangeException();
 			}
 		}
-		public static ApiServer GetApiServer() {
-			ApiServer result;
-			var apiserver = GetAppSetting("ApiServer");
-			if (apiserver != null && Enum.TryParse(apiserver.ToLower(), out result)) {
-				return result;
-			}
-			return ApiServer.localhost;
-			//throw new Exception("Invalid Environment");
-		}
-		public static string GetApiServerURL() {
-			switch (GetApiServer()) {
-				case ApiServer.localhost:
-					return "http://localhost:64310";
-				case ApiServer.localnetwork:
-					return "http://192.168.88.25:29900";
-				case ApiServer.publicnetwork:
-					return "http://124.6.139.245:29900";
-				default:
-					return "http://localhost:64310";
-			}
+		//public static ApiServer GetApiServer() {
+		//	ApiServer result;
+		//	var apiserver = GetAppSetting("ApiServer");
+		//	if (apiserver != null && Enum.TryParse(apiserver.ToLower(), out result)) {
+		//		return result;
+		//	}
+		//	return ApiServer.localhost;
+		//	//throw new Exception("Invalid Environment");
+		//}
+		//public static string GetApiServerURL() {
+		//	switch (GetApiServer()) {
+		//		case ApiServer.localhost:
+		//			return "http://localhost:64310";
+		//		case ApiServer.localnetwork:
+		//			return "http://192.168.88.25:29900";
+		//		case ApiServer.publicnetwork:
+		//			return "http://124.6.139.245:29900";
+		//		default:
+		//			return "http://localhost:64310";
+		//	}
 
-			//throw new Exception("Invalid Environment");
-		}
-		public static string GetCompanyLogo(string filename) {
-			return  GetAppSetting("CompanyImagePath") + filename;
-		}
-		public static string GetUserProfilePict(string filename) {
-			return GetAppSetting("UserImagePath") + filename;
-		}
+		//	//throw new Exception("Invalid Environment");
+		//}
+		//public static string GetCompanyLogo(string filename) {
+		//	return  GetAppSetting("CompanyImagePath") + filename;
+		//}
+		//public static string GetUserProfilePict(string filename) {
+		//	return GetAppSetting("UserImagePath") + filename;
+		//}
 		public static bool ShouldUpdateDB() {
 			var version = GetAppSetting("dbVersion", "0");
 			if (version == "0")
@@ -142,7 +142,7 @@ namespace PayrollStaging.Utilities {
 					return true;
 			
 				case Env.mssql: {
-						var dir = Path.Combine(Path.GetTempPath(), "FinancialSystem");
+						var dir = Path.Combine(Path.GetTempPath(), "PayrollStaging");
 						var file = Path.Combine(dir, "dbversion" + env + ".txt");
 						if (!Directory.Exists(dir))
 							Directory.CreateDirectory(dir);
@@ -158,7 +158,7 @@ namespace PayrollStaging.Utilities {
 						return true;
 					}
 				case Env.test_server: {
-						var dir = Path.Combine(Path.GetTempPath(), "FinancialSystem");
+						var dir = Path.Combine(Path.GetTempPath(), "PayrollStaging");
 						var file = Path.Combine(dir, "dbversion" + env + ".txt");
 						if (!Directory.Exists(dir))
 							Directory.CreateDirectory(dir);
