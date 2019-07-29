@@ -171,7 +171,7 @@ namespace PayrollStaging {
 	}
 }
 
-namespace FinancialSystem.AliveExtensions {
+namespace PayrollStaging.AliveExtensions {
 	public static class ObjectExtensions {
 		public static bool Alive(this object obj) {
 			if (obj is IDeletable)
@@ -181,7 +181,7 @@ namespace FinancialSystem.AliveExtensions {
 	}
 }
 
-namespace FinancialSystem.Nhibernate {
+namespace PayrollStaging.Nhibernate {
 	public static class ObjectExtensions {
 		public static T Unproxy<T>(this ISession s, T obj) {
 			return (T)s.GetSessionImplementation().PersistenceContext.Unproxy(obj);
@@ -189,7 +189,7 @@ namespace FinancialSystem.Nhibernate {
 	}
 }
 
-namespace FinancialSystem.Reflection {
+namespace PayrollStaging.Reflection {
 
 	public static class ObjectExtensions {
 		public static TRef Get<T, TRef>(this T obj, Expression<Func<T, TRef>> selector) {

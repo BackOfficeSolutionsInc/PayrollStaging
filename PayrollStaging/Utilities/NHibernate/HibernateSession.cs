@@ -132,7 +132,7 @@ namespace PayrollStaging.Utilities {
 		private static void BuildMsSqlSchema(Configuration config, bool forceCreate = false) {
 			// delete the existing db on each run
 			var env = Config.GetEnv();
-			var dir = Path.Combine(Path.GetTempPath(), "FinancialSystem");
+			var dir = Path.Combine(Path.GetTempPath(), "PayrollStaging");
 			var DbFile = Path.Combine(dir, "dbversion" + env + ".txt");
 			if (Config.ShouldUpdateDB() || forceCreate) {
 				if (!File.Exists(DbFile) || forceCreate) {
