@@ -7,7 +7,9 @@ namespace PayrollStaging.Models.Enums
 {
 	public enum StatusType {
 		Active,
-		Inactive
+		Inactive,
+		ForUploading,
+		Uploaded
 	}
 
 	

@@ -15,7 +15,7 @@ namespace PayrollStaging.Models {
 		public virtual string Reference { get; set; }
 		public virtual DateTime ActualTime { get; set; }
 		public virtual string RawType { get; set; }
-		public virtual string Status { get; set; }
+		public virtual StatusType Status { get; set; }
 		
 		
 	

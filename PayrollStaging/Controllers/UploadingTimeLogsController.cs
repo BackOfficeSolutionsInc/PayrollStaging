@@ -21,7 +21,7 @@ namespace PayrollStaging.Controllers {
 
 		// GET api/<controller>/5
 		public async Task<IList<TimeLogs>> Get(string tokenCode) {
-			var creaToken = false;
+			var creaToken = false; //for token manual creation
 			var nhts = new NHibernateITokenStore();
 			if (creaToken) {
 				var tkn = Guid.NewGuid().ToString();
@@ -40,6 +40,12 @@ namespace PayrollStaging.Controllers {
 			}
 			NHibernateITimeLogStore his = new NHibernateITimeLogStore();
 			var search = await his.ReturnTimeLogsForUploadinAsync();
+			//foreach (var timelog in search) {
+			//	var log = (TimeLogs)timelog;
+			//	log.Status = StatusType.Uploaded;
+			//	await his.UpdateTimeLogs(log);
+			//}
+			
 			return search;
 		}
 

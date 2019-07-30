@@ -165,6 +165,7 @@
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\TimeLogs.pubxml" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
@@ -175,6 +176,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\UpdatingTimeLosStatusController.cs" />
     <Compile Include="Controllers\UploadingTimeLogsController.cs" />
     <Compile Include="Crosscutting\Hooks\HookData.cs" />
     <Compile Include="Global.asax.cs">
